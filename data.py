@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def excel2df(excel_file_name, delete_pill_num, project_type):
+def excel2df(excel_file_name, delete_pill_num, project_type, custom_label=True):
     df = pd.read_excel(excel_file_name, engine="openpyxl")
 
     ## delete 구강정 data
@@ -18,7 +18,7 @@ def excel2df(excel_file_name, delete_pill_num, project_type):
     for index in index_delete:
         df = df.drop(index)
 
-    if project_type == "의약품제형" or project_type == "색상앞":
+    if project_type == "의약품제형":
         pill_type = sorted(list(set(df[project_type])))
 
         pills = []
@@ -31,16 +31,144 @@ def excel2df(excel_file_name, delete_pill_num, project_type):
         print("Excel file to dataframe done!")
         return df, pill_type, num_classes
 
+    elif project_type == "색상앞":
+        if custom_label:
+            pill_type = sorted(
+                [
+                    "투명",
+                    "연두, 투명",
+                    "초록, 투명",
+                    "회색",
+                    "하양, 투명",
+                    "갈색or빨강",
+                    "노랑or주황",
+                    "주황, 투명",
+                    "하양, 노랑",
+                    "분홍, 투명",
+                    "갈색, 투명",
+                    "보라",
+                    "연두or초록",
+                    "보라, 투명",
+                    "청록, 투명",
+                    "하양, 갈색",
+                    "청록",
+                    "분홍",
+                    "하양, 파랑",
+                    "하양",
+                    "빨강, 투명",
+                    "남색",
+                    "파랑, 투명",
+                    "파랑",
+                    "검정",
+                    "자주",
+                    "노랑, 투명",
+                ]
+            )
+
+            pills = []
+            for color in df["색상앞"]:
+                if color == "갈색, 투명":
+                    pills.append(0)
+                elif color == "갈색" or color == "빨강":
+                    pills.append(1)
+                elif color == "검정":
+                    pills.append(2)
+                elif color == "남색":
+                    pills.append(3)
+                elif color == "노랑, 투명":
+                    pills.append(4)
+                elif color == "노랑" or color == "주황":
+                    pills.append(5)
+                elif color == "보라":
+                    pills.append(6)
+                elif color == "보라, 투명":
+                    pills.append(7)
+                elif color == "분홍":
+                    pills.append(8)
+                elif color == "분홍, 투명":
+                    pills.append(9)
+                elif color == "빨강, 투명":
+                    pills.append(10)
+                elif color == "연두, 투명":
+                    pills.append(11)
+                elif color == "연두" or color == "초록":
+                    pills.append(12)
+                elif color == "자주":
+                    pills.append(13)
+                elif color == "주황, 투명":
+                    pills.append(14)
+                elif color == "청록":
+                    pills.append(15)
+                elif color == "청록, 투명":
+                    pills.append(16)
+                elif color == "초록, 투명":
+                    pills.append(17)
+                elif color == "투명":
+                    pills.append(18)
+                elif color == "파랑":
+                    pills.append(19)
+                elif color == "파랑, 투명":
+                    pills.append(20)
+                elif color == "하양":
+                    pills.append(21)
+                elif color == "하양, 갈색":
+                    pills.append(22)
+                elif color == "하양, 노랑":
+                    pills.append(23)
+                elif color == "하양, 투명":
+                    pills.append(24)
+                elif color == "하양, 파랑":
+                    pills.append(25)
+                elif color == "회색":
+                    pills.append(26)
+
+            df.insert(29, f"{project_type}_to_label", pills)
+            num_classes = len(pill_type)
+
+            print("Excel file to dataframe done!")
+            return df, pill_type, num_classes
+        else:
+            pill_type = sorted(list(set(df[project_type])))
+
+            pills = []
+            for pill in df[project_type]:
+                pills.append(pill_type.index(pill))
+
+            df.insert(29, f"{project_type}_to_label", pills)
+            num_classes = len(pill_type)
+
+            print("Excel file to dataframe done!")
+            return df, pill_type, num_classes
+
     elif project_type == "성상":
         pill_type = ["알약", "캡슐"]
 
         pills = []
-        for character in df["성상"]:
-            # tablet: 0, capsule: 1
-            if pill_type[1] not in character:
-                pills.append(0)
-            else:
+        # for character in df["성상"]:
+        # tablet: 0, capsule: 1
+
+        ## original
+        # if pill_type[1] not in character:
+        #     pills.append(0)
+        # else:
+        #     pills.append(1)
+
+        ## 성상에서 캡슐 & 캅셀 뽑아내기
+        # if "캡슐" in character or "캅셀" in character:
+        #     if "캡슐모양" not in character and "캅셀모양" not in character and "캅셀형" not in character:
+        #         pills.append(1)
+        #     else:
+        #         pills.append(0)
+        # else:
+        #     pills.append(0)
+
+        ## 품목명에서 캡슐 & 캅셀 뽑아내기
+        for name in df["품목명"]:
+            if "캡슐" in name or "캅셀" in name:
                 pills.append(1)
+            else:
+                pills.append(0)
+
         df.insert(29, f"{project_type}_to_label", pills)
         num_classes = len(pill_type)
 
@@ -49,12 +177,11 @@ def excel2df(excel_file_name, delete_pill_num, project_type):
 
     elif project_type == "성상_의약품제형":
         is_capsule_tablet = []
-        for character in df["성상"]:
-            # tablet: 0, capsule: 1
-            if "캡슐" not in character:
-                is_capsule_tablet.append(0)
-            else:
+        for name in df["품목명"]:
+            if "캡슐" in name or "캅셀" in name:
                 is_capsule_tablet.append(1)
+            else:
+                is_capsule_tablet.append(0)
 
         pill_type = [
             "알약_원형",

@@ -14,10 +14,11 @@ from tqdm import tqdm
 from data import excel2df
 from dataset import PillDataset
 from log import wandb_log
+from test import inference
 
 
 def train(args):
-    if args.project_name:
+    if args.project_name != "":
         wandb.init(
             project="final-project",
             entity="medic",
@@ -31,12 +32,25 @@ def train(args):
         )
 
     df, pill_type, num_classes = excel2df(
-        args.excel_file_name, args.delete_pill_num, args.project_type
+        args.excel_file_name, args.delete_pill_num, args.project_type, args.custom_label
     )
 
-    val_df, train_loader, val_loader = PillDataset(
-        df, args.project_type, args.batch_size, args.image_file_path
-    )
+    if args.create_test_data:
+        val_df, test_df, train_loader, val_loader, test_loader = PillDataset(
+            df,
+            args.project_type,
+            args.batch_size,
+            args.image_file_path,
+            args.create_test_data,
+        )
+    else:
+        val_df, train_loader, val_loader = PillDataset(
+            df,
+            args.project_type,
+            args.batch_size,
+            args.image_file_path,
+            args.create_test_data,
+        )
 
     model = timm.create_model(args.model_name, pretrained=True, num_classes=num_classes)
 
@@ -44,10 +58,14 @@ def train(args):
     model.to(device)
 
     criterion = torch.nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
+    optimizer = torch.optim.Adam(model.parameters(), lr=args.learning_rate)
     scheduler = StepLR(optimizer, args.lr_decay_step, gamma=0.5)
 
-    name = f"{args.model_name}_{args.project_type}"
+    if args.project_name:
+        name = f"{args.model_name}_{args.project_name}"
+    else:
+        name = f"{args.model_name}_{args.project_type}"
+
     os.makedirs(os.path.join(os.getcwd(), "results", name), exist_ok=True)
 
     counter = 0
@@ -94,9 +112,9 @@ def train(args):
         with torch.no_grad():
             print("Calculating validation results...")
             model.eval()
-            val_loss_items = []
-            val_acc_items = []
+            val_loss_items, val_acc_items = [], []
             label_accuracy, total_label = [0] * num_classes, [0] * num_classes
+
             for val_batch in val_loader:
                 inputs, labels = val_batch
                 inputs = inputs.to(device)
@@ -126,7 +144,7 @@ def train(args):
                 print("New best model for val accuracy! saving the model..")
                 torch.save(
                     model.state_dict(),
-                    f"results/{name}/{epoch:03}_accuracy_{val_acc:4.2%}.ckpt",
+                    f"results/{name}/best.ckpt",
                 )
                 best_val_acc = val_acc
                 counter = 0
@@ -156,7 +174,13 @@ def train(args):
             best_val_acc,
             pill_type,
             accuracy_by_label,
+            args.custom_label,
         )
+
+    if args.create_test_data:
+        return test_df, test_loader, model, device, pill_type
+    else:
+        return val_df, val_loader, model, device, pill_type
 
 
 if __name__ == "__main__":
@@ -176,7 +200,10 @@ if __name__ == "__main__":
         "--patience", type=int, default=10, help="early stopping (default: 10)"
     )
     parser.add_argument(
-        "--lr", type=int, default=0.0001, help="learning rate (defalt: 0.0001)"
+        "--learning_rate",
+        type=int,
+        default=0.0001,
+        help="learning rate (defalt: 0.0001)",
     )
     parser.add_argument(
         "--lr_decay_step",
@@ -228,6 +255,12 @@ if __name__ == "__main__":
         default="",
         help="customize project name of what difference the project has (default: )",
     )
+    parser.add_argument(
+        "--create_test_data",
+        type=bool,
+        default=False,
+        help="create test data from validation data (default: False)",
+    )
 
     ## customize data
     parser.add_argument(
@@ -237,7 +270,20 @@ if __name__ == "__main__":
         default=[],
         help="list of file to delete (default: [])",
     )
+    parser.add_argument(
+        "--custom_label",
+        type=bool,
+        default=False,
+        help="customize labels for training (default: False)",
+    )
 
     args = parser.parse_args()
 
     train(args)
+
+    # if args.create_test_data:
+    #     test_df, test_loader, model, device, pill_type = train(args)
+    #     inference(test_df, test_loader, model, device, pill_type)
+    # else:
+    #     val_df, val_loader, model, device, pill_type = train(args)
+    #     inference(val_df, val_loader, model, device, pill_type)
