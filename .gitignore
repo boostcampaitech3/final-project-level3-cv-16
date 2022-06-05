@@ -5,3 +5,7 @@
 *.jpg
 *.jpeg
 *.csv
+ePillID_data
+*.npy
+*.pyc
+*.pt
