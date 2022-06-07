@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from torch.optim.lr_scheduler import StepLR
+from torch.optim.lr_scheduler import StepLR, CosineAnnealingLR
 from torchvision import datasets, models, transforms
 
 import pandas as pd
@@ -9,6 +9,8 @@ import timm
 import argparse
 import wandb
 import os
+import random
+
 from tqdm import tqdm
 
 from data import excel2df
@@ -22,13 +24,13 @@ def train(args):
         wandb.init(
             project="final-project",
             entity="medic",
-            name=f"YH_{args.model_name}_{args.project_name}",
+            name=f"{args.user_name}_{args.model_name}_{args.project_name}",
         )
     else:
         wandb.init(
             project="final-project",
             entity="medic",
-            name=f"YH_{args.model_name}_{args.project_type}",
+            name=f"{args.user_name}_{args.model_name}_{args.project_type}",
         )
 
     df, pill_type, num_classes = excel2df(
@@ -58,8 +60,15 @@ def train(args):
     model.to(device)
 
     criterion = torch.nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=args.learning_rate)
-    scheduler = StepLR(optimizer, args.lr_decay_step, gamma=0.5)
+    if args.opt == "Adam":
+        optimizer = torch.optim.Adam(model.parameters(), lr=args.learning_rate)
+    elif args.opt == "AdamW":
+        optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate)
+
+    if args.sch == "StepLR":
+        scheduler = StepLR(optimizer, args.lr_decay_step, gamma=0.5)
+    elif args.sch == "Cosine":
+        scheduler = CosineAnnealingLR(optimizer, T_max=30, eta_min=0.001)
 
     if args.project_name:
         name = f"{args.model_name}_{args.project_name}"
@@ -201,7 +210,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--learning_rate",
-        type=int,
+        type=float,
         default=0.0001,
         help="learning rate (defalt: 0.0001)",
     )
@@ -223,13 +232,19 @@ if __name__ == "__main__":
         default=100,
         help="training log interval (default: 100)",
     )
+    parser.add_argument(
+        "--opt", type=str, default="Adam", help="optimizer (default: Adam)"
+    )
+    parser.add_argument(
+        "--sch", type=str, default="StepLR", help="scheduler (default: StepLR)"
+    )
 
     ## path, type, and name
     parser.add_argument(
         "--excel_file_name",
         type=str,
-        default="OpenData_PotOpenTabletIdntfc20220412.xls",
-        help="name of the pill data excel (default: OpenData_PotOpenTabletIdntfc20220412.xls)",
+        default="./pill_excel_data/OpenData_PotOpenTabletIdntfc20220412.xls",
+        help="name of the pill data excel (default: ./pill_excel_data/OpenData_PotOpenTabletIdntfc20220412.xls)",
     )
     parser.add_argument(
         "--image_file_path",
@@ -244,6 +259,12 @@ if __name__ == "__main__":
         help="which column to use (default: shape)",
     )
     parser.add_argument(
+        "--user_name",
+        type=str,
+        default="YH",
+        help="user name (default: YH)",
+    )
+    parser.add_argument(
         "--model_name",
         type=str,
         default="resnet18",
@@ -253,7 +274,7 @@ if __name__ == "__main__":
         "--project_name",
         type=str,
         default="",
-        help="customize project name of what difference the project has (default: )",
+        help="customize project name of what difference the project has (default: None)",
     )
     parser.add_argument(
         "--create_test_data",
