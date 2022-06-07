@@ -1,3 +1,11 @@
-*.ipynb
+*/work_dirs
+*/wandb
 .ipynb_checkpoints
-__pycache__
+*.png
+*.jpg
+*.jpeg
+*.csv
+ePillID_data
+*.npy
+*.pyc
+*.pt
