@@ -19,8 +19,18 @@ from log import wandb_log
 from test import inference
 
 
+def customize_seed(seed):
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)  # if use multi-GPU
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    np.random.seed(seed)
+    random.seed(seed)
+
+
 def train(args):
-    if args.project_name != "":
+    if args.project_name:
         wandb.init(
             project="final-project",
             entity="medic",
@@ -32,6 +42,8 @@ def train(args):
             entity="medic",
             name=f"{args.user_name}_{args.model_name}_{args.project_type}",
         )
+
+    customize_seed(args.seed)
 
     df, pill_type, num_classes = excel2df(
         args.excel_file_name, args.delete_pill_num, args.project_type, args.custom_label
@@ -232,6 +244,7 @@ if __name__ == "__main__":
         default=100,
         help="training log interval (default: 100)",
     )
+    parser.add_argument("--seed", type=int, default=16, help="fix seed (default: 16)")
     parser.add_argument(
         "--opt", type=str, default="Adam", help="optimizer (default: Adam)"
     )
