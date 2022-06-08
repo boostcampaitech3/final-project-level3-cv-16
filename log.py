@@ -1,6 +1,15 @@
 import wandb
 
 
+def wandb_log_train_only(train_loss, train_acc):
+    wandb.log(
+        {
+            "train_loss": train_loss,
+            "train_accuracy": train_acc,
+        }
+    )
+
+
 def wandb_log(
     project_type,
     train_loss,
@@ -34,13 +43,14 @@ def wandb_log(
                     "valid_accuracy": val_acc,
                     "best_loss": best_val_loss,
                     "best_accuracy": best_val_acc,
-                    f"{pill_type[1]}": accuracy_by_label[1],
-                    f"{pill_type[5]}": accuracy_by_label[5],
-                    f"{pill_type[8]}": accuracy_by_label[8],
-                    f"{pill_type[12]}": accuracy_by_label[12],
-                    f"{pill_type[19]}": accuracy_by_label[19],
-                    f"{pill_type[21]}": accuracy_by_label[21],
-                    f"{pill_type[26]}": accuracy_by_label[26],
+                    f"{pill_type[0]}": accuracy_by_label[0],
+                    f"{pill_type[2]}": accuracy_by_label[2],
+                    f"{pill_type[3]}": accuracy_by_label[3],
+                    f"{pill_type[6]}": accuracy_by_label[6],
+                    f"{pill_type[9]}": accuracy_by_label[9],
+                    f"{pill_type[15]}": accuracy_by_label[15],
+                    f"{pill_type[17]}": accuracy_by_label[17],
+                    f"{pill_type[20]}": accuracy_by_label[20],
                 }
             )
         else:
