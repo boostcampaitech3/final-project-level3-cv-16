@@ -13,7 +13,7 @@ from PIL import Image
 from io import BytesIO
 import pandas as pd
 import os
-
+import timm
 conn = None
 cursor = None
 
@@ -37,8 +37,8 @@ torch_transform = transforms.Compose([
 ])
 
 app = FastAPI()
-df = None
 model = EmbeddingModel('resnet50')
+cls_model = timm.create_model('resnet50',num_classes = 11)
 def subimage(image, rect):
     theta = rect[2]-90
     center = (int(rect[0][0]),int(rect[0][1]))
@@ -76,24 +76,23 @@ def segment_image(img_arr):
 @app.on_event("startup")
 def startup_event():
     global model
-    global df
-    df = pd.read_csv('OpenData_PotOpenTabletIdntfcC20220601.csv')
-    model.load_state_dict(torch.load('ePillID_benchmark/pill_encoder.pt'))
+    global cls_model
+    model.load_state_dict(torch.load('pill_encoder.pt'))
     model = model.eval()
+    cls_model.load_state_dict(torch.load('best_type_and_shape.ckpt'))
     print('load weight done!')
-    #global conn
-    #global cursor
-    #conn = pymysql.connect(
-    #    user="sangyoon", passwd="1234", host="localhost", db="pills", charset="utf8"
-    #)
-    #cursor = conn.cursor()
+    global conn
+    global cursor
+    conn = pymysql.connect(
+        user="root", passwd="1234", host="104.154.196.9", db="pills", charset="utf8"
+    )
+    cursor = conn.cursor()
 
 
 @app.on_event("shutdown")
 def shutdown_event():
-    pass
-    #conn.commit()
-    #conn.close()
+    conn.commit()
+    conn.close()
 
 @app.post("/image_segment/")
 async def query(file : UploadFile = File(...)):
@@ -101,7 +100,6 @@ async def query(file : UploadFile = File(...)):
     img = remove(img)
     arr = np.array(img)
     seg = segment_image(arr)
-    
     ret = Image.fromarray(seg)
     with BytesIO() as buf:
         ret.save(buf, format='PNG')
@@ -109,30 +107,42 @@ async def query(file : UploadFile = File(...)):
     headers = {'Content-Disposition': 'inline; filename="test.png"'}
     return Response(im_bytes, headers=headers, media_type='image/png')
 
-def cosine_distance(a,b):
-    dis = np.dot(a,b)/(np.linalg.norm(a)*np.linalg.norm(b))
-    return dis
 
 @app.post("/image_query/")
 async def query(files: List[UploadFile] = File(...)):
 
     feats =[]
-    feat_dir = 'ePillID_benchmark/features'
+    feat_dir = 'features'
+    
+    
     for file in files:
         imgarr = np.array(Image.open(BytesIO(await file.read())))
-        feats.append(model(torch_transform(imgarr).unsqueeze(0)).squeeze().detach().numpy())
+        with torch.no_grad():
+            feat = model(torch_transform(imgarr).unsqueeze(0)).squeeze().detach().numpy()
+            feat /= np.linalg.norm(feat)
+            feats.append(feat)
+    with torch.no_grad():
+        code = torch.argmax(cls_model(torch_transform(imgarr).unsqueeze(0))).item()
+    
+    sql = f'''
+    SELECT 품목일련번호,품목명,큰제품이미지
+    from pills_table
+    Where shape_code = {code}
+    '''
+
+    cursor.execute(sql)
+    results = cursor.fetchall()
     items = ItemOut()
     l = []
-    for index, row in df.iterrows():
-        feat_item = np.load(os.path.join(feat_dir,str(row['품목일련번호']) + '.npy'))
-        l.append((max(cosine_distance(feats[0],feat_item[1])+cosine_distance(feats[1],feat_item[0]),
-                    cosine_distance(feats[0],feat_item[0])+cosine_distance(feats[1],feat_item[1]),
-        )/2,row['큰제품이미지'],row['품목명'],row['분류명']))
+    for r in results:
+        feat_item = np.load(os.path.join(feat_dir,str(r[0]) + '.npy'))
+        l.append((max(np.dot(feats[0],feat_item[1])+np.dot(feats[1],feat_item[0]),
+                    np.dot(feats[0],feat_item[0])+np.dot(feats[1],feat_item[1]),
+        )/2,r[2],r[1]))
     l.sort(reverse = True)
-    print(l[:10])
     for i in range(10):
         items.items.append(
-            {"name": l[i][2], "image_url": l[i][1], "usage": l[i][3], "score": l[i][0]}
+            {"name": l[i][2], "image_url": l[i][1],"score": l[i][0]}
         )
     return items
 
