@@ -10,3 +10,4 @@ ePillID_data
 *.pyc
 *.pt
 *.ckpt
+*.pth
