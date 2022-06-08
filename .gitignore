@@ -1,3 +1,9 @@
 */work_dirs
 */wandb
 .ipynb_checkpoints
+features
+*.pyc
+*.pt
+*.pth
+*.ckpt
+*.ipynb_checkpoints
