@@ -219,7 +219,7 @@ def train(args):
             )
 
     if args.train_whole:
-        pass 
+        pass
     else:
         if args.create_test_data:
             return test_df, test_loader, model, device, pill_type
@@ -285,8 +285,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--image_file_path",
         type=str,
-        default="/opt/ml/final-project-level3-cv-16/data/raw_data",
-        help="path to image file (default: /opt/ml/final-project-level3-cv-16/data/raw_data)",
+        default="./data/raw_data",
+        help="path to image file (default: ./data/raw_data)",
     )
     parser.add_argument(
         "--project_type",

@@ -6,7 +6,7 @@ https://seong6496.tistory.com/108
 
 import os
 
-dir = "/opt/ml/final-project-level3-cv-16/data/kaggle_pill_data"
+dir = "../data/kaggle_pill_data"
 ann_dir = os.path.join(dir, "annotations")
 file_lists = os.listdir(ann_dir)
 
