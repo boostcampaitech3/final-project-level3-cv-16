@@ -5,7 +5,7 @@ reference: https://skkim1080.tistory.com/entry/Python%EC%9C%BC%EB%A1%9C-xml-%ED%
 import os
 import xml.etree.ElementTree as ET
 
-dir = "/opt/ml/final-project-level3-cv-16/data/kaggle_pill_data"
+dir = "../data/kaggle_pill_data"
 ann_dir = os.path.join(dir, "annotations")
 img_dir = os.path.join(dir, "images")
 file_list = os.listdir(ann_dir)
