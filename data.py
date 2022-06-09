@@ -35,6 +35,21 @@ def excel2df(excel_file_name, delete_pill_num, project_type, custom_label=True):
         print("Excel file to dataframe done!")
         return df, pill_type, num_classes
 
+    elif project_type == "색상앞_2가지":
+        pill_type = ["not_white", "white"]
+        pills = []
+        for color in df["색상앞"]:
+            if "하양" not in color:
+                pills.append(0)
+            else:
+                pills.append(1)
+
+        df.insert(29, f"{project_type}_to_label", pills)
+        num_classes = len(pill_type)
+
+        print("Excel file to dataframe done!")
+        return df, pill_type, num_classes
+
     elif project_type == "색상앞":
         if custom_label:
             if excel_file_name.split(".")[-1] == "xls":

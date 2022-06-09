@@ -1,1 +1,9 @@
-python train.py --project_type 성상
+# python train.py --model_name resnet50 --project_type 색상앞
+# python train.py --model_name resnet50 --project_type 성상_의약품제형
+
+# python train.py --model_name resnet50 --project_type 색상앞 --custom_label True --project_name 색상앞_1e-4_Adam_Step --learning_rate 0.0001 --opt Adam --sch StepLR --batch_size 256 --train_log_interval 25 --image_file_path ./data/normalized_data --excel_file_name ./pill_excel_data/OpenData_PotOpenTabletIdntfcC20220601.csv --delete_pill_num 198902527
+# python train.py --model_name resnet50 --project_type 성상_의약품제형 --project_name 성상_제형_5e-5_Adam_Step --learning_rate 0.00005 --opt Adam --sch StepLR  --batch_size 256 --train_log_interval 25 --image_file_path ./data/normalized_data --excel_file_name ./pill_excel_data/OpenData_PotOpenTabletIdntfcC20220601.csv --delete_pill_num 200710167 200102561 197800388 199906868 197900378
+
+python train.py --model_name resnet18 --project_type 색상앞_2가지 --project_name 색상앞_하양_분류 --learning_rate 0.0001 --opt Adam --sch StepLR --batch_size 256 --train_log_interval 25 --image_file_path ./data/normalized_data --excel_file_name ./pill_excel_data/OpenData_PotOpenTabletIdntfcC20220601.csv --delete_pill_num 198902527
+python train.py --model_name resnet50 --project_type 색상앞_2가지 --project_name 색상앞_하양_분류 --learning_rate 0.0001 --opt Adam --sch StepLR --batch_size 256 --train_log_interval 25 --image_file_path ./data/normalized_data --excel_file_name ./pill_excel_data/OpenData_PotOpenTabletIdntfcC20220601.csv --delete_pill_num 198902527
+# python train.py --model_name resnet50 --project_type 색상앞_2가지 --project_name 색상앞_하양_분류 --learning_rate 0.0001 --opt Adam --sch StepLR --batch_size 256 --train_log_interval 25 --image_file_path ./data/normalized_data --excel_file_name ./pill_excel_data/OpenData_PotOpenTabletIdntfcC20220601.csv --delete_pill_num 198902527

@@ -75,6 +75,20 @@ def wandb_log(
                 }
             )
 
+    elif project_type == "색상앞_2가지":
+        wandb.log(
+            {
+                "train_loss": train_loss,
+                "train_accuracy": train_acc,
+                "valid_loss": val_loss,
+                "valid_accuracy": val_acc,
+                "best_loss": best_val_loss,
+                "best_accuracy": best_val_acc,
+                f"{pill_type[0]}": accuracy_by_label[0],
+                f"{pill_type[1]}": accuracy_by_label[1],
+            }
+        )
+
     elif project_type == "의약품제형":
         wandb.log(
             {
