@@ -8,12 +8,10 @@
 ePillID_data
 *.npy
 *.pyc
-*.pt
-*.ckpt
-*.pth
+
 features
 *.pyc
 *.pt
-*.pth
+
 *.ckpt
 *.ipynb_checkpoints
