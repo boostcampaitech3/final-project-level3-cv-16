@@ -53,9 +53,9 @@ def main():
             ]
             with st.spinner("잠시만 기다려주세요"):
                 if from_all:
-                    res = requests.post("http://127.0.0.1:8080/image_query/", files=files, params = {'all' : True})
+                    res = requests.post("http://backend:8080/image_query/", files=files, params = {'all' : True})
                 else:
-                    res = requests.post("http://127.0.0.1:8080/image_query/", files=files, params = {'all' : False})
+                    res = requests.post("http://backend:8080/image_query/", files=files, params = {'all' : False})
             outputs = res.json()
             k = 10 if ten else 5
             if outputs["items"][0]['valid']:

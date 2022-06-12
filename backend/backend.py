@@ -42,8 +42,7 @@ cls_transform = transforms.Compose([
 ])
 
 app = FastAPI()
-conn = None
-cursor = None
+
 emb_model = None
 cls_model = None
 seg_model = None
@@ -85,32 +84,27 @@ def startup_event():
     global cls_model
     global seg_model
     emb_model = EmbeddingModel('resnet101').cpu()
-    emb_model.load_state_dict(torch.load('pill_encoder.pt'))
+    emb_model.load_state_dict(torch.load('pill_encoder.pt',torch.device('cpu')))
     emb_model.eval()
     cls_model = cls_model = timm.create_model('resnet50',num_classes = 11)
-    cls_model.load_state_dict(torch.load('best_type_and_shape.ckpt'))
+    cls_model.load_state_dict(torch.load('best_type_and_shape.ckpt',torch.device('cpu')))
     cls_model = cls_model.eval().cpu()
     seg_model = torch.hub.load('ultralytics/yolov5', 'custom', path='best.pt').cpu()
     seg_model.eval()
     print('load weight done!')
-    global conn
-    global cursor
-    conn = pymysql.connect(
-        user="root", passwd="1234", host="104.154.196.9", db="pills", charset="utf8"
-    )
-    cursor = conn.cursor()
-
-
-@app.on_event("shutdown")
-def shutdown_event():
-    conn.commit()
-    conn.close()
+        
 
 @app.post("/image_query/")
 async def query(all : bool,files: List[UploadFile] = File(...)):
-    print(all)
+    user = os.environ['MYSQL_USER']
+    passwd = os.environ['MYSQL_PASSWORD']
+    host = os.environ['MYSQL_HOST']
+    conn = pymysql.connect(
+        user=user, passwd=passwd, host=host, db="pills", charset="utf8"
+    )
+    cursor = conn.cursor()
     feats =[]
-    feat_dir = 'features'
+    feat_dir = './features'
     cls_ret = np.zeros((448,448,3))
     items = ItemOut()
     for i,file in enumerate(files):
@@ -165,7 +159,8 @@ async def query(all : bool,files: List[UploadFile] = File(...)):
         items.items.append(
             {"valid": True, "name": l[i][2], "image_url": l[i][1],"score": l[i][0]}
         )
+    conn.close()
     return items
 
 if __name__ == "__main__":
-    uvicorn.run("backend:app", host="127.0.0.1", port=8080)
+    uvicorn.run("backend:app", host="0.0.0.0", port=8080)
