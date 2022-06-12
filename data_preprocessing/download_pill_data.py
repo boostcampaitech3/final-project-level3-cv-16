@@ -15,13 +15,12 @@ def download(args):
         df = pd.read_excel(args.excel_file_name, engine="openpyxl")
     elif args.excel_file_name.split(".")[-1] == "csv":
         df = pd.read_csv(args.excel_file_name)
-    data_save_dir = "../data/raw_data"
-    start = time.time()
 
+    start = time.time()
     for idx in tqdm(range(len(df))):
         image_key = list(df["품목일련번호"])[idx]
         image_url = list(df["큰제품이미지"])[idx]
-        req.urlretrieve(image_url, f"{data_save_dir}/{image_key}.jpg")
+        req.urlretrieve(image_url, f"{args.data_save_dir}/{image_key}.jpg")
     print(time.time() - start)
 
 
