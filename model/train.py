@@ -30,18 +30,19 @@ def customize_seed(seed):
 
 
 def train(args):
-    if args.project_name:
-        wandb.init(
-            project="final-project",
-            entity="medic",
-            name=f"{args.user_name}_{args.model_name}_{args.project_name}",
-        )
-    else:
-        wandb.init(
-            project="final-project",
-            entity="medic",
-            name=f"{args.user_name}_{args.model_name}_{args.project_type}",
-        )
+    # if using wandb, remove hashtag and fill in 'project' & 'title'
+    # if args.project_name:
+    #     wandb.init(
+    #         project="",
+    #         entity="",
+    #         name=f"{args.user_name}_{args.model_name}_{args.project_name}",
+    #     )
+    # else:
+    #     wandb.init(
+    #         project="",
+    #         entity="",
+    #         name=f"{args.user_name}_{args.model_name}_{args.project_type}",
+    #     )
 
     customize_seed(args.seed)
 

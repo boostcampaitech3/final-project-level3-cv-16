@@ -226,34 +226,12 @@ def excel2df(excel_file_name, delete_pill_num, project_type, custom_label=True):
         pill_type = ["알약", "캡슐"]
 
         pills = []
-        for character in df["성상"]:
-            # tablet: 0, capsule: 1
-
-            ## original
-            # if pill_type[1] not in character:
-            #     pills.append(0)
-            # else:
-            #     pills.append(1)
-
-            ## 성상에서 캡슐 & 캅셀 뽑아내기
-            if "캡슐" in character or "캅셀" in character:
-                if (
-                    "캡슐모양" not in character
-                    and "캅셀모양" not in character
-                    and "캅셀형" not in character
-                ):
-                    pills.append(1)
-                else:
-                    pills.append(0)
+        ## 품목명에서 캡슐 & 캅셀 뽑아내기
+        for name in df["품목명"]:
+            if "캡슐" in name or "캅셀" in name:
+                pills.append(1)
             else:
                 pills.append(0)
-
-        ## 품목명에서 캡슐 & 캅셀 뽑아내기
-        # for name in df["품목명"]:
-        #     if "캡슐" in name or "캅셀" in name:
-        #         pills.append(1)
-        #     else:
-        #         pills.append(0)
 
         df.insert(29, f"{project_type}_to_label", pills)
         num_classes = len(pill_type)
