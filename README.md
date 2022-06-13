@@ -76,29 +76,35 @@
 final-project-level3-cv-16
 ├─ api_folder
 │   ├─ .streamlit
-|   |  └─ config.toml
+|   |   └─ config.toml
 │   ├─ backend
-|   |  ├─ epillid_benchmark(cloned from Link)
-|   |  ├─ Dockerfile
-|   |  ├─ Backend.py
-|   |  └─ requirements.txt
+|   |   ├─ epillid_benchmark(cloned from Link)
+|   |   ├─ Dockerfile
+|   |   ├─ Backend.py
+|   |   └─ requirements.txt
 │   ├─ frontend
-|   |  ├─ Dockerfile
-|   |  ├─ frontend.py
-|   |  └─ requirements.txt
+|   |   ├─ Dockerfile
+|   |   ├─ frontend.py
+|   |   └─ requirements.txt
 │   └─ Docker
-|      └─ docker-compose.yml  
+|       └─ docker-compose.yml  
 └─ image_classification
     ├─ data_preprocessing
-        └─ download_pill_data.py, normalize_pill_data.py
+    |   ├─ download_pill_data.py 
+    |   └─ normalize_pill_data.py
     ├─ image_concatenation
-        └─ concatenation_images.py
+    |   └─ concatenation_images.py
     ├─ kaggle_pill_data_preprocessing
-        └─ 1_annotation_file_name_to_txt.py, 2_edit_xml_path.py, 3_xml_to_json.py
+    |   ├─ 1_annotation_file_name_to_txt.py
+    |   ├─ 2_edit_xml_path.py
+    |   └─ 3_xml_to_json.py
     ├─ pill_excel_data
-        └─ README.md
+    |   └─ README.md
     ├─ .gitignore
-    └─ data.py, dataset.py, log.py, train.py
+    ├─ data.py
+    ├─ dataset.py
+    ├─ log.py
+    └─ train.py
 ```
 
 ## ✏️ Evaluation Methods
