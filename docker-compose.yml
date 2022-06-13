@@ -1,0 +1,14 @@
+version: "3.5"
+services:
+  frontend:
+    image: final-project-level3-cv-16_frontend:latest
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+  backend:
+    image: final-project-level3-cv-16_backend:latest
+    volumes:
+      - C:/Users/eondr/Downloads/final_project/final-project-level3-cv-16/features:/app/features
+    ports:
+      - 8080:8080
