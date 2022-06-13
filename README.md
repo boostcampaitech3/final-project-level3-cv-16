@@ -146,7 +146,7 @@ final-project-level3-cv-16
 - YOLACT: Real-time Instance Segmentation ([Link](https://arxiv.org/abs/1904.02689))
 - How to make deep-text-recognition-benchmark model to recognize both Korean and English ([Link](https://ropiens.tistory.com/35))
 - OCR Model ([Link](https://github.com/clovaai/deep-text-recognition-benchmark))
-- Jaccord Similarity ([Link](https://newscatcherapi.com/blog/ultimate-guide-to-text-similarity-with-python))
+- Jaccard Similarity ([Link](https://newscatcherapi.com/blog/ultimate-guide-to-text-similarity-with-python))
 - Text-Recognition Model ([Link](https://github.com/clovaai/CRAFT-pytorch))
 - Background-Removal program ([Link](https://github.com/brilam/remove-bg))
 - Object Detection model YOLOv5 ([Link](https://github.com/ultralytics/yolov5))
