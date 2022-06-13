@@ -1,7 +1,7 @@
 """
 How To Use?
-1. Create "convert_test_image" directory and "test_data" directory.
-2. Put images into "convert_test_image" directory.
+1. Create "test_data" directory and "converted_test_data" directory.
+2. Put images into "test_data" directory.
 (only 2 images: front image, back image)
 3. Find "pill_number" in the CSV and replace the variable's value.
 4. Code "python concatenation_images.py" in terminal.
@@ -11,8 +11,8 @@ import cv2
 import numpy as np
 import os
 
-image_root = "/opt/ml/final-project-level3-cv-16/convert_test_image"
-save_root = "/opt/ml/final-project-level3-cv-16/test_data"
+image_root = "../data/test_data"
+save_root = "../data/converted_test_data"
 images = os.listdir(image_root)
 pill_number = 199400579
 
