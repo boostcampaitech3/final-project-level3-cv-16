@@ -206,18 +206,19 @@ def train(args):
                 )
 
             ## 기존의 학습과 다른 label을 사용한다면, 무조건 wandb.py 안의 wandb.log()를 수정해야 함
-            wandb_log(
-                args.project_type,
-                train_loss,
-                train_acc,
-                val_loss,
-                val_acc,
-                best_val_loss,
-                best_val_acc,
-                pill_type,
-                accuracy_by_label,
-                args.custom_label,
-            )
+            ## If using wandb, remove hashtag
+            # wandb_log(
+            #     args.project_type,
+            #     train_loss,
+            #     train_acc,
+            #     val_loss,
+            #     val_acc,
+            #     best_val_loss,
+            #     best_val_acc,
+            #     pill_type,
+            #     accuracy_by_label,
+            #     args.custom_label,
+            # )
 
     if args.train_whole:
         pass
