@@ -88,7 +88,7 @@ final-project-level3-cv-16
 |   |  └─ requirements.txt
 │   └─ Docker
 |      └─ docker-compose.yml  
-└─ Image_Classification
+└─ image_classification
     ├─ data_preprocessing
         └─ download_pill_data.py, normalize_pill_data.py
     ├─ image_concatenation
