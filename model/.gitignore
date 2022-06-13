@@ -3,3 +3,6 @@ data
 archive.zip
 test_data
 convert_test_image
+results
+wandb
+mmdetection
