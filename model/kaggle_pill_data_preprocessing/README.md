@@ -1,12 +1,12 @@
 # Kaggle Pill Data Preprocessing
 ### Prerequisites
 download pill dataset: https://www.kaggle.com/datasets/perfect9015/pillsdetectiondataset</br>
-my local environment has the dataset in `final-project-level3-cv-16/data/kaggle_pill_data`
+my local environment had the dataset in `Image_Classification/data/kaggle_pill_data`
 
 ### Steps to follow
 0. Edit noise data</br>
 change `pill-man-s-hand-white_114963-1058 (1).xml` to `pill-man-s-hand-white_114963-1058.xml`
-1. Create `final-project-level3-cv-16/data/kaggle_pill_data/labels.txt`
+1. Create `Image_Classification/data/kaggle_pill_data/labels.txt`
 ```text
 tablets
 ```
@@ -34,5 +34,5 @@ Win users: ctrl+A, ctrl+k+f </br>
 ![image](https://user-images.githubusercontent.com/73840274/168699729-0ead6849-c2a6-4e9d-a6e5-7c6e49033851.png)
 
 ### For More Information
-Issue #7: https://github.com/boostcampaitech3/final-project-level3-cv-16/issues/7</br>
-Issue #20: https://github.com/boostcampaitech3/final-project-level3-cv-16/issues/20
+Issue https://github.com/boostcampaitech3/final-project-level3-cv-16/issues/7</br>
+Issue https://github.com/boostcampaitech3/final-project-level3-cv-16/issues/20
