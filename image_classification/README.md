@@ -6,7 +6,7 @@
     
     ```bash
     git clone https://github.com/boostcampaitech3/final-project-level3-cv-16.git
-    cd final-project-level3-cv-16/Image_Classification
+    cd final-project-level3-cv-16/image_classification
     ```
     
 2. Installing the requirements for training
