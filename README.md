@@ -58,9 +58,9 @@
 
 ## 💾 Datasets
 
-- 의약품 안전나라 데이터( [Link](https://nedrug.mfds.go.kr/pbp/CCBGA01/getItem?totalPages=4&limit=10&page=2&&openDataInfoSeq=11) )
-- ePillID Benchmark ( [Link](https://github.com/usuyama/ePillID-benchmark) )
-- 기타 이미지 데이터( [Link](https://unsplash.com/s/photos/pill) )
+- 의약품 안전나라 데이터 ([Link](https://nedrug.mfds.go.kr/pbp/CCBGA01/getItem?totalPages=4&limit=10&page=2&&openDataInfoSeq=11))
+- ePillID Benchmark ([Link](https://github.com/usuyama/ePillID-benchmark))
+- 기타 이미지 데이터 ([Link](https://unsplash.com/s/photos/pill))
     - Classification 및 Object Detection을 위해 직접 촬영 및 수집한, 라이센스가 없는 이미지들
 
 ## 💻 **Development Environment**
@@ -114,21 +114,13 @@ final-project-level3-cv-16
 
 ## 🚀 How to Start
 
-1. Image Classification
+1. Image Classification: [Link](https://github.com/boostcampaitech3/final-project-level3-cv-16/tree/main/image_classification#readme)
     
-    (GitHub Link to README.md)
+2. OCR: [To Be Updated]()
     
-2. OCR
-    
-    (Github Link to README.md)
-    
-3. Object Detection(yolov5)
-    
-    (Github Link to README.md)
+3. Object Detection (yolov5): [To Be Updated]()
 
-4. Metric learning
-    
-    (Github Link to README.md)
+4. Metric learning: [To Be Updated]()
 
 ## 🔎 Future Research
 
