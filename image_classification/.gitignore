@@ -1,0 +1,17 @@
+*/work_dirs
+*/wandb
+.ipynb_checkpoints
+*.png
+*.jpg
+*.jpeg
+*.csv
+ePillID_data
+*.npy
+*.pyc
+
+features
+*.pyc
+*.pt
+
+*.ckpt
+*.ipynb_checkpoints
