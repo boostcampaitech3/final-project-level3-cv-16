@@ -9,7 +9,8 @@
 
 - Project Presentation File: [CV_16조_알약분류_최종프로젝트 발표자료.pdf](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/66c8546c-34bf-433c-a44a-f598594ef9ad/CV_16조_알약분류_최종프로젝트_발표자료.pdf)
 
-- Project Wrap-up Report: [To Be Updated]()
+- Project Wrap-up Report: [최종 프로젝트_CV_16_Wrap UP Report.pdf](https://github.com/boostcampaitech3/final-project-level3-cv-16/files/8896773/_CV_16_Wrap.UP.Report.pdf)
+
 
 ## 👀 너의 알약이 보여 💊
 
