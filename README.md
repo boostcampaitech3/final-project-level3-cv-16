@@ -107,9 +107,10 @@ final-project-level3-cv-16
     └─ train.py
 ```
 
-## ✏️ Evaluation Methods
+## ✏️ Evaluation
 
-- Top-1 accuracy & Top-5 accuracy
+- Top-1 accuracy: 43%
+- Top-5 accuracy: 80%
 
 ## 🚀 How to Start
 
