@@ -119,9 +119,9 @@ final-project-level3-cv-16
     
 2. OCR: [Link](https://github.com/boostcampaitech3/final-project-level3-cv-16/blob/develop/README.md)
     
-3. Object Detection (yolov5): [Link](https://github.com/boostcampaitech3/final-project-level3-cv-16/blob/main/src/Metric_learning_README.md)
+3. Object Detection (yolov5): [Link](https://github.com/boostcampaitech3/final-project-level3-cv-16/blob/main/src/Object_detection_README.md)
 
-4. Metric learning: [Link]()
+4. Metric learning: [Link](https://github.com/boostcampaitech3/final-project-level3-cv-16/blob/main/src/Metric_learning_README.md)
 
 ## 🔎 Future Research
 
