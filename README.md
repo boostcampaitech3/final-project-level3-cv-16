@@ -1,4 +1,4 @@
-### 🤔 How to start?
+# 🤔 How to start?
 
 1. Clone to CRAFT-pytroch (© ClovaAI)
     
