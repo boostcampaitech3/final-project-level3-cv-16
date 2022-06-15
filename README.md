@@ -117,11 +117,11 @@ final-project-level3-cv-16
 
 1. Image Classification: [Link](https://github.com/boostcampaitech3/final-project-level3-cv-16/tree/main/image_classification#readme)
     
-2. OCR: [To Be Updated](https://github.com/boostcampaitech3/final-project-level3-cv-16/blob/develop/README.md)
+2. OCR: [Link](https://github.com/boostcampaitech3/final-project-level3-cv-16/blob/develop/README.md)
     
-3. Object Detection (yolov5): [To Be Updated]()
+3. Object Detection (yolov5): [Link]()
 
-4. Metric learning: [To Be Updated]()
+4. Metric learning: [Link]()
 
 ## 🔎 Future Research
 
