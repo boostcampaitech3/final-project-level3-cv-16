@@ -87,7 +87,7 @@ final-project-level3-cv-16
     python demo.py --Transformation TPS --FeatureExtraction ResNet --SequenceModeling BiLSTM --Prediction Attn --image_folder demo_image/ --saved_model TPS-ResNet-BiLSTM-Attn.pth
     ```
     
-
+---
 # 자신만의 데이터 셋으로 학습하거나, 영어가 아닌 데이터 셋을 학습해야 하는 경우
 
 1. Create your own lmdb dataset
