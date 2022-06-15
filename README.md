@@ -46,7 +46,7 @@ final-project-level3-cv-16
     ├─ text_classificaiton_evaluation
     |   └─ text_recog_analysis.ipynb
     └─ ocr_text_crop.py
-
+```
 
 
 # 🤔 How to start?
