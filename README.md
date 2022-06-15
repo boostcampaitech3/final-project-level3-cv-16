@@ -1,154 +1,87 @@
-# 너의 알약이 보여 - by. Team Medic(CV-16)
+### 🤔 How to start?
 
----
+1. Clone to CRAFT-pytroch (© ClovaAI)
+    
+    ```bash
+    git clone https://github.com/clovaai/CRAFT-pytorch.git
+    pip install -r requirements.txt
+    ```
+    
+2. Clone to deep-text-recognition-benchmark (© ClovaAI)
+    
+    ```bash
+    git clone https://github.com/clovaai/deep-text-recognition-benchmark.git
+    pip install lmdb pillow torchvision nltk natsort
+    ```
+    
+3. [https://drive.google.com/file/d/1Jk4eGD7crsqCCg9C9VjCLkMN3ze8kutZ/view](https://drive.google.com/file/d/1Jk4eGD7crsqCCg9C9VjCLkMN3ze8kutZ/view) 에서 pth file을 다운 받습니다.
+4. Clone한 CRAFT-pytroch 폴더 내에 위에서 다운받은 pth file을 저장합니다.
+5. 하단 코드를 입력하여 CRAFT-pytorch를 실행합니다.
+    
+    ```bash
+    python test.py --trained_model=[weightfile] --test_folder=[folder path to test images]
+    ```
+    
+6. 하단 코드를 입력하여 text부분만 추출합니다.
+    
+    ```bash
+    python ocr_text_crop.py
+    ```
+    
+7. [https://www.dropbox.com/sh/j3xmli4di1zuv3s/AAArdcPgz7UFxIHUuKNOeKv_a?dl=0](https://www.dropbox.com/sh/j3xmli4di1zuv3s/AAArdcPgz7UFxIHUuKNOeKv_a?dl=0) 에서 TPS-ResNet-BiLSTM-Attn-case-sensitive.pth file을 다운로드 받습니다.
+8. Clone 한 deep-text-recognition-benchmark 폴더 내에 saved_model 폴더를 생성 후 위에서 다운받은 pth file을 해당 디렉토리에 넣습니다.
+9. 하단 코드를 입력하여 deep-text-recognition-benchmark를 실행합니다.
+    
+    ```bash
+    python demo.py --Transformation TPS --FeatureExtraction ResNet --SequenceModeling BiLSTM --Prediction Attn --image_folder demo_image/ --saved_model TPS-ResNet-BiLSTM-Attn.pth
+    ```
+    
 
-## 📚 Project Overview
+# 자신만의 데이터 셋으로 학습하거나, 영어가 아닌 데이터 셋을 학습해야 하는 경우
 
-- Project Period: 2022.04.07 ~ 2022.06.10
-- Project Presentation Video: [Link to YouTube](https://www.youtube.com/watch?v=lCG4DU4Wljc)
+1. Create your own lmdb dataset
 
-- Project Presentation File: [CV_16조_알약분류_최종프로젝트 발표자료.pdf](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/66c8546c-34bf-433c-a44a-f598594ef9ad/CV_16조_알약분류_최종프로젝트_발표자료.pdf)
+```
+pip install fire
 
-- Project Wrap-up Report: [To Be Updated]()
-
-## 👀 너의 알약이 보여 💊
-
-- Metric Learning을 활용한 Reverse Pill Image Search
-- streamlit 실행 예시
-
-![프로젝트 시연.gif](https://github.com/boostcampaitech3/final-project-level3-cv-16/blob/develop/src/streamlit%20%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3%20%E1%84%89%E1%85%B5%E1%84%8B%E1%85%A7%E1%86%AB.gif)
-
-### 😎 Members
-
-| [권순호](https://github.com/tnsgh9603) | [서다빈](https://github.com/sodabeans) | [서예현](https://github.com/justbeaver97) | [이상윤](https://github.com/SSANGYOON) | [전경민](https://github.com/seoulsky-field) |
-| --- | --- | --- | --- | --- |
-| ![권순호](https://github.com/boostcampaitech3/final-project-level3-cv-16/blob/develop/src/%E1%84%80%E1%85%AF%E1%86%AB%E1%84%89%E1%85%AE%E1%86%AB%E1%84%92%E1%85%A9.png) | ![서다빈](https://github.com/boostcampaitech3/final-project-level3-cv-16/blob/develop/src/%E1%84%89%E1%85%A5%E1%84%83%E1%85%A1%E1%84%87%E1%85%B5%E1%86%AB.png) | ![서예현](https://github.com/boostcampaitech3/final-project-level3-cv-16/blob/develop/src/%E1%84%89%E1%85%A5%E1%84%8B%E1%85%A8%E1%84%92%E1%85%A7%E1%86%AB.jpg) | ![이상윤](https://github.com/boostcampaitech3/final-project-level3-cv-16/blob/develop/src/%E1%84%8B%E1%85%B5%E1%84%89%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B2%E1%86%AB.png) | ![전경민](https://github.com/boostcampaitech3/final-project-level3-cv-16/blob/develop/src/%E1%84%8C%E1%85%A5%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC%E1%84%86%E1%85%B5%E1%86%AB.png) |
-
-### 🤗 Contribution
-
-- 권순호: FastAPI, BentoML, streamlit, GCP, OCR, Text Recognition
-- 서다빈: FastAPI, streamlit, OCR, Text Recognition
-- 서예현: Data EDA, Data Pre-processing, Image Classification, Custom Dataset Production
-- 이상윤: Metric learning, Segmentation, Database, Docker
-- 전경민: Data EDA, Data Pre-processing, Data Annotation, OCR, Text Recognition
-
-## **❓ About This Project**
-
-### Purpose
-
-- 사용자의 알약 이미지로부터 알약을 식별하는 인공지능 서비스
-
-### Objective
-
-- 사용자의 **알약 이미지**로부터 **성상, 제형, 색상**을 식별 후 조건에 맞는 알약을 검색하여 알약의 **종류**를 식별한다.
-
-### Target Audience
-
-- 지리적, 물리적 한계로 약국이나 병원을 방문하기 어려운 사람
-- 알약은 있지만 알약을 구분할 수 없는 사람
-
-### Background Information
-
-- 종종 일어나는 처방 실수, 및 착각으로 인한 약물사고를 예방하고자 하였다.
-- 실제 보건 계열 종사자에 따르면 노년 층의 경우 어떤 알약인지 병원에 방문하여 알약을 찾는 경우가 존재한다고 하며, 한국의 통계를 보았을 때도 약물 오복용에 의한 사고는 줄지 않고 계속 유지되고 있는 추세이다.
-
-## 🗺 Service Architecture
-
-![Service Architecture](https://github.com/boostcampaitech3/final-project-level3-cv-16/blob/develop/src/Service%20Architecture.png)
-
-## 💾 Datasets
-
-- 의약품 안전나라 데이터( [Link](https://nedrug.mfds.go.kr/pbp/CCBGA01/getItem?totalPages=4&limit=10&page=2&&openDataInfoSeq=11) )
-- ePillID Benchmark ( [Link](https://github.com/usuyama/ePillID-benchmark) )
-- 기타 이미지 데이터( [Link](https://unsplash.com/s/photos/pill) )
-    - Classification 및 Object Detection을 위해 직접 촬영 및 수집한, 라이센스가 없는 이미지들
-
-## 💻 **Development Environment**
-
-- GPU: Tesla V100
-- OS: Ubuntu 18.04.5LTS
-- CPU: Intel Xeon
-- Python : 3.8.5 / 3.9.13
-
-## 📁 Project Structure (Main branch)
-
-```markdown
-final-project-level3-cv-16
-├─ api_folder
-│   ├─ .streamlit
-|   |   └─ config.toml
-│   ├─ backend
-|   |   ├─ epillid_benchmark(cloned from Link)
-|   |   ├─ Dockerfile
-|   |   ├─ Backend.py
-|   |   └─ requirements.txt
-│   ├─ frontend
-|   |   ├─ Dockerfile
-|   |   ├─ frontend.py
-|   |   └─ requirements.txt
-│   └─ Docker
-|       └─ docker-compose.yml  
-└─ image_classification
-    ├─ data_preprocessing
-    |   ├─ download_pill_data.py 
-    |   └─ normalize_pill_data.py
-    ├─ image_concatenation
-    |   └─ concatenation_images.py
-    ├─ kaggle_pill_data_preprocessing
-    |   ├─ 1_annotation_file_name_to_txt.py
-    |   ├─ 2_edit_xml_path.py
-    |   └─ 3_xml_to_json.py
-    ├─ pill_excel_data
-    |   └─ README.md
-    ├─ .gitignore
-    ├─ data.py
-    ├─ dataset.py
-    ├─ log.py
-    └─ train.py
+# Please enter the path and file name according to the situation.
+python create_lmdb_dataset.py --inputPath data/ --gtFile data/gt.txt --outputPath result/
 ```
 
-## ✏️ Evaluation
-
-- Top-1 accuracy: 43%
-- Top-5 accuracy: 80%
-
-## 🚀 How to Start
-
-1. Image Classification
+1. The structure of the data folder should be as below.
     
-    (GitHub Link to README.md)
+    ```
+    data
+    ├── gt.txt
+    └── test
+        ├── word_1.png
+        ├── word_2.png
+        ├── word_3.png
+        └── ...
+    ```
     
-2. OCR
+2. At this time, gt.txt should be {imagepath}\t{label}\n
+For example
     
-    (Github Link to README.md)
+    ```
+    test/word_1.png Tiredness
+    test/word_2.png kills
+    test/word_3.png A
+    ...
+    ```
     
-3. Object Detection(yolov5)
+3. Modify —select_data, —batch_ratio, and opt.character (Note the following [Link](https://ropiens.tistory.com/35) or train_KOR_ENG_[data.py](http://data.py/))
     
-    (Github Link to README.md)
-
-4. Metric learning
+    [train_KOR_ENG_[data.py](http://data.py/)](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d939880a-7204-4171-b729-ef841889d3e9/train.py)
     
-    (Github Link to README.md)
 
-## 🔎 Future Research
+<aside>
+💡 parser.add_argument('--character', type=str, default='0123456789abcdefghijklmnopqrstuvwxyz가각간갇갈감갑값갓강갖같갚갛개객걀걔거걱건걷걸검겁것겉게겨격겪견결겹경곁계고곡곤곧골곰곱곳공과관광괜괴굉교구국군굳굴굵굶굽궁권귀귓규균귤그극근글긁금급긋긍기긴길김깅깊까깍깎깐깔깜깝깡깥깨꺼꺾껌껍껏껑께껴꼬꼭꼴꼼꼽꽂꽃꽉꽤꾸꾼꿀꿈뀌끄끈끊끌끓끔끗끝끼낌나낙낚난날낡남납낫낭낮낯낱낳내냄냇냉냐냥너넉넌널넓넘넣네넥넷녀녁년념녕노녹논놀놈농높놓놔뇌뇨누눈눕뉘뉴늄느늑는늘늙능늦늬니닐님다닥닦단닫달닭닮담답닷당닿대댁댐댓더덕던덜덟덤덥덧덩덮데델도독돈돌돕돗동돼되된두둑둘둠둡둥뒤뒷드득든듣들듬듭듯등디딩딪따딱딴딸땀땅때땜떠떡떤떨떻떼또똑뚜뚫뚱뛰뜨뜩뜯뜰뜻띄라락란람랍랑랗래랜램랫략량러럭런럴럼럽럿렁렇레렉렌려력련렬렵령례로록론롬롭롯료루룩룹룻뤄류륙률륭르른름릇릎리릭린림립릿링마막만많말맑맘맙맛망맞맡맣매맥맨맵맺머먹먼멀멈멋멍멎메멘멩며면멸명몇모목몬몰몸몹못몽묘무묵묶문묻물뭄뭇뭐뭘뭣므미민믿밀밉밌및밑바박밖반받발밝밟밤밥방밭배백뱀뱃뱉버번벌범법벗베벤벨벼벽변별볍병볕보복볶본볼봄봇봉뵈뵙부북분불붉붐붓붕붙뷰브븐블비빌빔빗빚빛빠빡빨빵빼뺏뺨뻐뻔뻗뼈뼉뽑뿌뿐쁘쁨사삭산살삶삼삿상새색샌생샤서석섞선설섬섭섯성세섹센셈셋셔션소속손솔솜솟송솥쇄쇠쇼수숙순숟술숨숫숭숲쉬쉰쉽슈스슨슬슴습슷승시식신싣실싫심십싯싱싶싸싹싼쌀쌍쌓써썩썰썹쎄쏘쏟쑤쓰쓴쓸씀씌씨씩씬씹씻아악안앉않알앓암압앗앙앞애액앨야약얀얄얇양얕얗얘어억언얹얻얼엄업없엇엉엊엌엎에엔엘여역연열엷염엽엿영옆예옛오옥온올옮옳옷옹와완왕왜왠외왼요욕용우욱운울움웃웅워원월웨웬위윗유육율으윽은을음응의이익인일읽잃임입잇있잊잎자작잔잖잘잠잡잣장잦재쟁쟤저적전절젊점접젓정젖제젠젯져조족존졸좀좁종좋좌죄주죽준줄줌줍중쥐즈즉즌즐즘증지직진질짐집짓징짙짚짜짝짧째쨌쩌쩍쩐쩔쩜쪽쫓쭈쭉찌찍찢차착찬찮찰참찻창찾채책챔챙처척천철첩첫청체쳐초촉촌촛총촬최추축춘출춤춥춧충취츠측츰층치칙친칠침칫칭카칸칼캄캐캠커컨컬컴컵컷케켓켜코콘콜콤콩쾌쿄쿠퀴크큰클큼키킬타탁탄탈탑탓탕태택탤터턱턴털텅테텍텔템토톤톨톱통퇴투툴툼퉁튀튜트특튼튿틀틈티틱팀팅파팎판팔팝패팩팬퍼퍽페펜펴편펼평폐포폭폰표푸푹풀품풍퓨프플픔피픽필핏핑하학한할함합항해핵핸햄햇행향허헌험헤헬혀현혈협형혜호혹혼홀홈홉홍화확환활황회획횟횡효후훈훌훔훨휘휴흉흐흑흔흘흙흡흥흩희흰히힘-+/.&', help='character label')
 
-- 모델의 정확도 향상 및 inference time 단축
-- Mobile Application 제작
-- 실용성 향상
-- OCR 적용
+</aside>
 
-## 📎 Appendix
+## ✏️ text-recognition 모델을 의약품안전나라 데이터로 평가하기
 
-📄 [Experiments & Submission Report](https://www.notion.so/W18-21-Product-Serving-Project-Team-Medic-c09ea15ac67948d08fe4460194f773a8)
+해당 프로세스는 ipynb 파일에 정리되어 있습니다.
 
-## 📜 Reference
-
-- ePillID Dataset: A Low-Shot Fine-Grained Benchmark for Pill Identification ([Link](https://arxiv.org/pdf/2005.14288.pdf))
-- YOLACT: Real-time Instance Segmentation ([Link](https://arxiv.org/abs/1904.02689))
-- How to make deep-text-recognition-benchmark model to recognize both Korean and English ([Link](https://ropiens.tistory.com/35))
-- OCR Model ([Link](https://github.com/clovaai/deep-text-recognition-benchmark))
-- Jaccard Similarity ([Link](https://newscatcherapi.com/blog/ultimate-guide-to-text-similarity-with-python))
-- Text-Recognition Model ([Link](https://github.com/clovaai/CRAFT-pytorch))
-- Background-Removal program ([Link](https://github.com/brilam/remove-bg))
-- Object Detection model YOLOv5 ([Link](https://github.com/ultralytics/yolov5))
-- timm ([Link](https://github.com/rwightman/pytorch-image-models))
+Check out this [link](https://github.com/boostcampaitech3/final-project-level3-cv-16/tree/develop/ocr/text_recognition_evaluation#readme)!
