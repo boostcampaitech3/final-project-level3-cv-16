@@ -39,6 +39,7 @@ final-project-level3-cv-16
     |   └─ test.py 
     ├─ deep-text-recognition-benchmark
     |   ├─ train.py
+    |   ├─ demo.py
     |   ├─ train_KOR_ENG_data.py
     |   └─ create_lmdb_dataset.py
     ├─ text_classificaiton_exp 
