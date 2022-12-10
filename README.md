@@ -21,7 +21,7 @@
 
 ### 😎 Members
 
-| [권순호](https://github.com/tnsgh9603) | [서다빈](https://github.com/sodabeans) | [서예현](https://github.com/justbeaver97) | [이상윤](https://github.com/SSANGYOON) | [전경민](https://github.com/seoulsky-field) |
+| [권순호](https://github.com/tnsgh9603) | [서다빈](https://github.com/sodabeans) | [서예현](https://github.com/yehyunsuh) | [이상윤](https://github.com/SSANGYOON) | [전경민](https://github.com/seoulsky-field) |
 | --- | --- | --- | --- | --- |
 | ![권순호](https://github.com/boostcampaitech3/final-project-level3-cv-16/blob/develop/src/%E1%84%80%E1%85%AF%E1%86%AB%E1%84%89%E1%85%AE%E1%86%AB%E1%84%92%E1%85%A9.png) | ![서다빈](https://github.com/boostcampaitech3/final-project-level3-cv-16/blob/develop/src/%E1%84%89%E1%85%A5%E1%84%83%E1%85%A1%E1%84%87%E1%85%B5%E1%86%AB.png) | ![서예현](https://github.com/boostcampaitech3/final-project-level3-cv-16/blob/develop/src/%E1%84%89%E1%85%A5%E1%84%8B%E1%85%A8%E1%84%92%E1%85%A7%E1%86%AB.jpg) | ![이상윤](https://github.com/boostcampaitech3/final-project-level3-cv-16/blob/develop/src/%E1%84%8B%E1%85%B5%E1%84%89%E1%85%A1%E1%86%BC%E1%84%8B%E1%85%B2%E1%86%AB.png) | ![전경민](https://github.com/boostcampaitech3/final-project-level3-cv-16/blob/develop/src/%E1%84%8C%E1%85%A5%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC%E1%84%86%E1%85%B5%E1%86%AB.png) |
 
